@@ -41,9 +41,11 @@ while (tela_inicio==False):
 cama_elastica_imagem = pygame.image.load('bombeiros.png')
 resgatado_imagem = pygame.image.load('RESGATADO.png')
 ambulancia_imagem = pygame.image.load('Ambulancia.png')
+predio_imagem = pygame.image.load('images.jpg')
 cama_elastica_imagem = pygame.transform.scale(cama_elastica_imagem, (150,150))
 resgatado_imagem = pygame.transform.scale(resgatado_imagem, (30,30))
 ambulancia_imagem = pygame.transform.scale(ambulancia_imagem, (175,175))
+predio_imagem = pygame.transform.scale(predio_imagem,(100,300))
 
 #Criando a classe do jogador
 class Jogador(pygame.sprite.Sprite):
@@ -149,7 +151,8 @@ all_sprites.add(rescue)
 all_resgatados.add(rescue)
 ambulancia = Ambulance(ambulancia_imagem)
 all_sprites.add(ambulancia)
-
+predio = building(predio_imagem)
+all_sprites.add(predio)
 
 #criando evento para ir adicionando resgatados
 
@@ -216,9 +219,6 @@ while game:
     # ----- Gera saídas
     janela_jogo.fill((255, 255, 0))  #Preenche background da tela do jogo
     all_sprites.draw(janela_jogo)
-    cor_predio = (25,25,25)
-    vertices_predio = ((0,400),(100,400),(100,100),(0,100))
-    pygame.draw.polygon(janela_jogo,cor_predio,vertices_predio) #Desenha o predio
     vertices_ambulancia = ((WIDTH - 150,350),(WIDTH,350),(WIDTH,400),(WIDTH - 150,400))
     
 
