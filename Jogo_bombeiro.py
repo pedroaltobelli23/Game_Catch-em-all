@@ -238,13 +238,10 @@ while game:
     if Lifes == 0:
             game = False
     
-    pygame.display.update()  # Mostra o novo frame para o jogador
-    
-    
     all_sprites.update()  #Atualizando posicao das sprites
+    pygame.display.update()  # Mostra o novo frame para o jogador
+
     
-
-
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
 
