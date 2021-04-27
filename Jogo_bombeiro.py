@@ -76,7 +76,7 @@ class Resgatado(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.centerx = -25
-        self.rect.centery = 350
+        self.rect.centery = 400
         self.speedx = 2
         self.speedy = 4.5
         self.mask = pygame.mask.from_surface(self.image)
@@ -184,17 +184,17 @@ while game:
         if event.type == pygame.KEYDOWN:
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_LEFT:
-                player.speedx -= 14
+                player.speedx -= 16
             if event.key == pygame.K_RIGHT:
-                player.speedx += 14
+                player.speedx += 16
         
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_LEFT:
-                player.speedx += 14
+                player.speedx += 16
             if event.key == pygame.K_RIGHT:
-                player.speedx -= 14
+                player.speedx -= 16
 
         
 
@@ -205,6 +205,14 @@ while game:
             Random_vel=(random.randint(4,7))*1000
             pygame.time.set_timer(ADDRESCUE,Random_vel)
             print(Random_vel)
+            print(len(all_resgatados))
+
+    #Fica mais dificil em funcao da pontuacao do player
+    
+    if Score >= 2:
+        rescue.speedx = 2.7
+
+        
 
     #verifica se houve ou nao colisao do resgatado com cama elastica
     for elemento in all_resgatados :
@@ -213,14 +221,15 @@ while game:
         if pygame.sprite.collide_mask(elemento,ambulancia) :
             elemento.kill()
             Score += 1
-        if elemento.rect.y == HEIGHT - 10 :   #ira tirar uma vida qando o rescue cair no chao,nao houve colisao
+        if elemento.rect.y == HEIGHT - 10 :   #ira tirar uma vida quando o rescue cair no chao,nao houve colisao
             Lifes -= 1
+            elemento.kill()
 
     # ----- Gera saídas
     janela_jogo.fill((255, 255, 0))  #Preenche background da tela do jogo
     all_sprites.draw(janela_jogo)
     vertices_ambulancia = ((WIDTH - 150,350),(WIDTH,350),(WIDTH,400),(WIDTH - 150,400))
-    
+    janela_jogo.blit(predio_imagem,(0,100))
 
     # ----- Gerando saida da pontucao
     font = pygame.font.Font(None, 30)
