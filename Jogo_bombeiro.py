@@ -25,7 +25,7 @@ while (tela_inicio==False):
             tela_inicio = True
             game = False
 
-        if event.type== pygame.MOUSEBUTTONDOWN:
+        if event.type== pygame.KEYDOWN:
             tela_inicio=True
 
     janela_jogo.fill(color_dark)
@@ -41,13 +41,14 @@ while (tela_inicio==False):
 cama_elastica_imagem = pygame.image.load('bombeiros.png')
 resgatado_imagem = pygame.image.load('RESGATADO.png')
 ambulancia_imagem = pygame.image.load('Ambulancia.png')
-predio_imagem = pygame.image.load('images.jpg')
+predio_imagem = pygame.image.load('images.jpg') #Precisa ser trocada pela imagem de um predio
 cama_elastica_imagem = pygame.transform.scale(cama_elastica_imagem, (150,150))
 resgatado_imagem = pygame.transform.scale(resgatado_imagem, (30,30))
 ambulancia_imagem = pygame.transform.scale(ambulancia_imagem, (175,175))
 predio_imagem = pygame.transform.scale(predio_imagem,(100,300))
 
 #Criando a classe do jogador
+
 class Jogador(pygame.sprite.Sprite):
      def __init__(self, img):
         # Construtor da classe mãe (Sprite).
@@ -64,7 +65,7 @@ class Jogador(pygame.sprite.Sprite):
         self.rect.x += self.speedx
 
         # Mantem dentro da tela
-        if self.rect.right > WIDTH - 120:       #mudar para que o maximo seja a ambulancia
+        if self.rect.right > WIDTH - 120:       
             self.rect.right = WIDTH - 120
         if self.rect.left < 70:
             self.rect.left = 70
@@ -108,18 +109,7 @@ class Ambulance(pygame.sprite.Sprite) :
         self.rect.x = self.rect.x
         self.rect.y = self.rect.y
 
-class building(pygame.sprite.Sprite) :
-    def __init__(self,img) :
-        pygame.sprite.Sprite.__init__(self)
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = 0                         
-        self.rect.y = 100
-        self.mask = pygame.mask.from_surface(self.image)
 
-    def update(self):
-        self.rect.x = self.rect.x
-        self.rect.y = self.rect.y
 
 class Perigo(pygame.sprite.Sprite) :
     def __init__(self,img) :
@@ -151,8 +141,6 @@ all_sprites.add(rescue)
 all_resgatados.add(rescue)
 ambulancia = Ambulance(ambulancia_imagem)
 all_sprites.add(ambulancia)
-predio = building(predio_imagem)
-all_sprites.add(predio)
 
 #criando evento para ir adicionando resgatados
 
@@ -160,6 +148,10 @@ ADDRESCUE = pygame.USEREVENT + 1
 CHANGE_VEL = pygame.USEREVENT + 2
 pygame.time.set_timer(ADDRESCUE,10000)
 
+
+        
+
+    
 
 
 #pontuacao inicial do placar
@@ -206,12 +198,13 @@ while game:
             pygame.time.set_timer(ADDRESCUE,Random_vel)
             print(Random_vel)
             print(len(all_resgatados))
+            print(rescue.speedx)
 
     #Fica mais dificil em funcao da pontuacao do player
     
-    if Score >= 2:
+    if Score//2 == 0:
         rescue.speedx = 2.7
-
+    
         
 
     #verifica se houve ou nao colisao do resgatado com cama elastica
@@ -229,7 +222,7 @@ while game:
     janela_jogo.fill((255, 255, 0))  #Preenche background da tela do jogo
     all_sprites.draw(janela_jogo)
     vertices_ambulancia = ((WIDTH - 150,350),(WIDTH,350),(WIDTH,400),(WIDTH - 150,400))
-    janela_jogo.blit(predio_imagem,(0,100))
+    janela_jogo.blit(predio_imagem,(0,100)) #blit da imagem do predio
 
     # ----- Gerando saida da pontucao
     font = pygame.font.Font(None, 30)
@@ -249,6 +242,8 @@ while game:
     
     all_sprites.update()  #Atualizando posicao das sprites
     pygame.display.update()  # Mostra o novo frame para o jogador
+
+#===== Tela de Game Over =====
 
     
 # ===== Finalização =====
