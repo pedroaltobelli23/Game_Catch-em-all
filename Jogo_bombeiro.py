@@ -46,7 +46,7 @@ cama_elastica_imagem = pygame.transform.scale(cama_elastica_imagem, (150,150))
 resgatado_imagem = pygame.transform.scale(resgatado_imagem, (30,30))
 ambulancia_imagem = pygame.transform.scale(ambulancia_imagem, (175,175))
 predio_imagem = pygame.transform.scale(predio_imagem,(100,300))
-
+tela_final = "#" #tela do game over
 #Criando a classe do jogador
 
 class Jogador(pygame.sprite.Sprite):
@@ -244,8 +244,28 @@ while game:
     pygame.display.update()  # Mostra o novo frame para o jogador
 
 #===== Tela de Game Over =====
+aa=False
+instrucoes = True
+game = True
+while (aa==False):
 
-    
+    for event in pygame.event.get():
+        # ----- Verifica consequências
+        
+        if event.type == pygame.QUIT:
+            aa = True
+            
+
+        if event.type== pygame.KEYDOWN:
+            aa=True
+
+    janela_jogo.fill(color_dark)
+    titulo_na_tela = pygame.image.load('tela_de_inicio.png')
+    titulo_na_tela = pygame.transform.scale(titulo_na_tela, (WIDTH,HEIGHT))
+    janela_jogo.blit(titulo_na_tela,(0,0))
+    pygame.display.flip()
+
+
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
 
